@@ -88,7 +88,8 @@ footer{padding:26px 0 50px;color:var(--muted);font-size:.75rem;text-align:center
 <div class="chart" id="hChart"></div></section>
 
 <section class="card"><div class="row" style="justify-content:space-between"><div><h2>🇪🇸 AEMET</h2>
-<div class="muted" id="aIntro">Municipios AEMET más cercanos a la localización elegida.</div></div><button class="btn btn-s" id="aTest">Probar AEMET</button></div>
+<div class="muted" id="aIntro">Municipios AEMET más cercanos a la localización elegida.</div></div>
+<div class="row"><a class="btn btn-s" target="_blank" href="https://opendata.aemet.es/centrodedescargas/altaUsuario">Solicitar API Key</a><button class="btn btn-s" id="aTest">Probar AEMET</button></div></div>
 <div class="row" style="margin:12px 0"><input type="password" id="aKey" placeholder="API Key de AEMET OpenData"><button class="btn btn-p" id="aSave">Guardar</button></div>
 <div class="g2" id="aGrid"></div></section>
 
@@ -126,7 +127,7 @@ const jget=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}c
 const jset=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
-function emoji(c){c=num(c);if(c===null)return"·";if(c===0)return"☀️";if(c<=2)return"🌤️";if(c===3)return"☁️️";if(c<=48)return"🌫️";if(c<=57)return"🌦️️";if(c<=67)return"🌧️";if(c<=77)return"🌨️️";if(c<=82)return"🌧️";if(c<=86)return"🌨️️";if(c>=95)return"⛈️";return"·"}
+function emoji(c){c=num(c);if(c===null)return"·";if(c===0)return"☀️";if(c<=2)return"🌤️";if(c===3)return"☁";if(c<=48)return"🌫️";if(c<=57)return"🌦";if(c<=67)return"🌧️";if(c<=77)return"🌨";if(c<=82)return"🌧️";if(c<=86)return"🌨";if(c>=95)return"⛈️";return"·"}
 const WD={0:"Despejado",1:"Principalmente despejado",2:"Parcialmente nuboso",3:"Nuboso",45:"Niebla",48:"Niebla",51:"Llovizna",53:"Llovizna",55:"Llovizna intensa",61:"Lluvia",63:"Lluvia moderada",65:"Lluvia intensa",71:"Nieve",73:"Nieve moderada",75:"Nieve intensa",80:"Chubascos",81:"Chubascos",82:"Chubascos intensos",95:"Tormenta",96:"Tormenta con granizo",99:"Tormenta con granizo"};
 const wdesc=c=>num(c)===null?"Sin datos":(WD[Number(c)]||"Condiciones variables");
 
@@ -340,9 +341,9 @@ function brief(){
  let all=worst([rl,wl,tl]);if(all==="g"&&cl==="r")all="y";LASTL={all,rl,wl,tl,cl,d};
  const rainH=hrs.filter(x=>x.rain>=1).map(x=>x.h);
  const ind=[
-  ["🌧️","Lluvia",rl,`${mm(d.rain)} en el día · máx. ${mm(mxR)}/h`+(ap!=null?` · AEMET ${pct(ap)}`:"")],
+  ["🌧️️","Lluvia",rl,`${mm(d.rain)} en el día · máx. ${mm(mxR)}/h`+(ap!=null?` · AEMET ${pct(ap)}`:"")],
   ["💨","Viento",wl,`Rachas hasta ${kmh(mxG)}`],
-  ["🌡️","Temperatura",tl,`${temp(d.min)} – ${temp(d.max)}`],
+  ["🌡️️","Temperatura",tl,`${temp(d.min)} – ${temp(d.max)}`],
   ["🎯","Fiabilidad",cl,c.score===null?"Faltan modelos":`Consenso ${c.level} (${c.score}%)`]];
  const blocks=[["🌅","Mañana",6,12],["☀️","Mediodía",12,16],["🌇","Tarde",16,22]].map(([ic,n,a,b])=>{
   const x=hrs.filter(h=>h.h>=a&&h.h<b);if(!x.length)return"";
